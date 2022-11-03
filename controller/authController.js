@@ -57,7 +57,7 @@ const authController = {
     logout: async (req,res) =>{
   try{      
             res.clearCookie('refreshToken', { path: `/api/v1/auth/refreshToken`})
-             res.json({msg: "logout"})
+             res.json({msg: "logout successfull"})
         }catch(err){
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({msg: err.message})
         }

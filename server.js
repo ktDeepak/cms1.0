@@ -34,12 +34,18 @@ app.use(
 
 const authRoute = require('./route/authRoute');
 const userRoute = require('./route/userRoute');
+const imageRoute = require('./route/imageRoute');
 
 //primary route
 
 app.use('/api/v1/auth', authRoute)
 app.use('/api/v1/user', userRoute)
+app.use('/api/v1/image', imageRoute)
 
+//default route
+app.all(`*`,(req,res)=>{
+    res.status(StatusCodes.NOT_FOUND).json({msg:`The Requested route path is not found`})
+})
 
 const start = async () => {
     try {
@@ -49,7 +55,7 @@ const start = async () => {
         })
 
     }catch(err) {
-        return res.status(StatusCodes.INTERNAL_SERVAL_ERROR).json({msg: err.message})
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({msg: err.message})
         
     }
 
