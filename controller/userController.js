@@ -1,4 +1,4 @@
-const { statusCodes } = require('http-status-codes');
+const { StatusCodes } = require('http-status-codes');
 const User=require('../model/userModel')
 
 const userController = {
@@ -10,7 +10,7 @@ const userController = {
 
         res.json({users:filteredUsers,length:filteredUsers.length})
        }catch(err){
-        return res.status(statusCodes.INTERNAL_SERVER_ERROR).json({msg: err.message})
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({msg: err.message})
        }
     },
 
@@ -20,7 +20,7 @@ const userController = {
             const user=await User.findById({_id:id})
             res.json({user})
         }catch(err){
-            return res.status(statusCodes.INTERNAL_SERVER_ERROR).json({msg: err.message})
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({msg: err.message})
         }
      },
 
@@ -29,9 +29,9 @@ const userController = {
             const {name,mobile,image}=req.body
             await User.findByIdAndUpdate({_id:req.user.id},{name,mobile,image})
 
-            res.status(statusCodes.OK).json({msg:"user data updated successfully."})
+            res.status(StatusCodes.OK).json({msg:"user data updated successfully."})
         }catch(err){
-            return res.status(statusCodes.INTERNAL_SERVER_ERROR).json({msg: err.message})
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({msg: err.message})
         }
     },
 
@@ -41,7 +41,7 @@ const userController = {
             await User.findByIdAndDelete({_id:id})
             res.json({msg: "user data deleted successfully."})
         }catch(err){
-            return res.status(statusCodes.INTERNAL_SERVER_ERROR).json({msg: err.message})
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({msg: err.message})
         }
      },
      changeRole: async (req,res) => {
@@ -52,7 +52,7 @@ const userController = {
 
             res.json({msg: "role updated successfulluy"})
         }catch(err){
-            return res.status(statusCodes.INTERNAL_SERVER_ERROR).json({msg: err.message})
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({msg: err.message})
         }
              },
 
