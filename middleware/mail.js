@@ -1,4 +1,5 @@
-const nodeMailer=require('nodemailer')
+const nodeMailer=require('nodemailer');
+//const Mail = require('nodemailer/lib/mailer');
 
 const sendMail=async (to, subject ,content)=>{
     try {
@@ -11,8 +12,16 @@ const sendMail=async (to, subject ,content)=>{
                 pass:process.env.MAIL_PASSWORD,
             }
         });
-        let info=await transporter.sendMail()
+        let info=await transporter.sendMail({
+            from:process.env.MAIL_ID,
+            to,
+            subject,
+            html:`<div> ${content}</div>`
+
+        });
+        return info;
     } catch (err) {
-        
+        return err.message
     }
 }
+module.exports= sendMail
