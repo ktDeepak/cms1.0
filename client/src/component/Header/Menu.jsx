@@ -3,7 +3,7 @@ import {NavLink, useNavigate} from 'react-router-dom'
 import {DataContext} from "../../GlobalContext"
 
 import axios from 'axios'
-import toast from "react-toastify"
+import {toast} from "react-toastify"
 
 function Menu() {
     const context=useContext(DataContext)
@@ -20,12 +20,12 @@ function Menu() {
         if(window.confirm(`Are you sure to logout?`)){
             const res= await axios.get(`/api/v1/auth/logout`);
             localStorage.clear();
-            if(isAdmin) setIsAdmin(flase)
+            if(isAdmin) setIsAdmin(false)
             if (isStudent) setIsStudent(false)
             if (isTrainer) setIsTrainer(false)
             setIsLogged(false)
             toast.success(res.data.msg);
-            window.location.href="/"
+            window.location.href="/";
         }else{
             return;
         }
@@ -38,18 +38,8 @@ function Menu() {
                     <NavLink to="#" className="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                         Account
                     </NavLink>
-                    <ul className="deopdown-menu">
-                        <li>
-                           {
-                             isAdmin?<NavLink to={`/admin/profile`} className="dropdown-item">profile</NavLink>:null
-                           }
-                           {
-                             isStudent?<NavLink to={`/student/profile`} className="dropdown-item">profile</NavLink>:null
-                           }
-                           {
-                             isTrainer?<NavLink to={`/trainer/profile`} className="dropdown-item">profile</NavLink>:null
-                           }
-                        </li>
+                    <ul className="dropdown-menu">
+                        
                         <li>
                         {
                              isAdmin?<NavLink to={`/admin/dashboard`} className="dropdown-item">Dashboard</NavLink>:null
@@ -61,9 +51,20 @@ function Menu() {
                              isTrainer?<NavLink to={`/trainer/dashboard`} className="dropdown-item">Dashboard</NavLink>:null
                            }
                         </li>
+                        <li>
+                           {
+                             isAdmin?<NavLink to={`/admin/profile`} className="dropdown-item">profile</NavLink>:null
+                           }
+                           {
+                             isStudent?<NavLink to={`/student/profile`} className="dropdown-item">profile</NavLink>:null
+                           }
+                           {
+                             isTrainer?<NavLink to={`/trainer/profile`} className="dropdown-item">profile</NavLink>:null
+                           }
+                        </li>
                         <li className="dropdown-divider"></li>
                         <li >
-                            <NavLink to={`/`} onClick={logoutUser} className="dropdown-item text-white"></NavLink>
+                            <NavLink to={`/`} onClick={logoutUser} className="dropdown-item btn btn-danger">logout</NavLink>
                         </li>
                     </ul>
                 </li>
@@ -78,9 +79,9 @@ function Menu() {
            {
             isLogged?(
                 <React.Fragment>
-                     { isAdmin?"Admin-CMS-V1.0":null }
-                     { isStudent?"Student-CMS-V1.0":null }
-                     { isTrainer?"Trainer-CMS-V1.0":null }
+                     { isAdmin?"Admin-CMS-v1.0":null }
+                     { isStudent?"Student-CMS-v1.0":null }
+                     { isTrainer?"Trainer-CMS-v1.0":null }
                 </React.Fragment>
             ):"CMS-v1.0"
            }
@@ -88,7 +89,7 @@ function Menu() {
             <button className="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
                 <span className="navbar-toggler-icon"></span>
             </button>
-            <div className="collapse navbar-collapse justify-content-between" id="menu">
+            <div className={isLogged?"collapse navbar-collapse justify-content-end":"collapse navbar-collapse justify-content-between"} id="menu">
                {
                 isLogged?null:(
                     <nav className="navbar-nav">

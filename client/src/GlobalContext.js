@@ -31,7 +31,7 @@ function DataProvider(props) {
     const memoValue=useMemo(()=>({
           token,
           data
-        }),[token])
+        }),[token,data])
   return (
     <DataContext.Provider value={memoValue}>
         {props.children}

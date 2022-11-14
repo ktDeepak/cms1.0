@@ -1,18 +1,18 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import { DataContext } from '../GlobalContext'
-import{outlet,Navigate} from 'react-router-dom'
+import{Navigate,Outlet} from 'react-router-dom'
 
-function protectedRoute() {
+function ProtectedRoute() {
     
     const context=useContext(DataContext)
     const [token]=context.token
   return (
     <React.Fragment>
         {
-            token?<outlet/>:<Navigate to ={`/login`}/>
+            token?<Outlet/>:<Navigate to ={`/login`}/>
         }
     </React.Fragment>
   )
 }
 
-export default protectedRoute
+export default ProtectedRoute
