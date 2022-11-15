@@ -8,7 +8,7 @@ const userAuth=require('../middleware/userAuth')
 //admin auth
 route.get(`/allUsers`,auth,adminAuth, userController.getAll)
 route.delete('/delete/:id',auth,adminAuth, userController.deleteUser)
-route.patch('/changeRole/:id', userController.changeRole)
+route.patch('/changeRole/:id',auth,adminAuth, userController.changeRole)
 
 //user auth
 route.get(`/currentUser`,auth, userController.getCurrentUser)
